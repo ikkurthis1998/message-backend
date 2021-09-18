@@ -26,7 +26,7 @@ io.on("connection", (socket: Socket) => {
 });
 
 mongoose.connect("mongodb+srv://dbAdmin:adminpassword@lets-chat.6qo7h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(() => {
-	server.listen(3000, () => {
+	server.listen(process.env.PORT, () => {
 		console.log("It's on b*tch!");
 	});
 })
