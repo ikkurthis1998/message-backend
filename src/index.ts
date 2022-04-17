@@ -1,6 +1,9 @@
 import express from "express";
-// const express = require('express');
+import dotenv from "dotenv";
+dotenv.config();
+
 const app = express();
+
 
 import http from "http";
 const server = http.createServer(app);
@@ -25,7 +28,7 @@ io.on("connection", (socket: Socket) => {
 	});
 });
 
-mongoose.connect(" mongodb+srv://mongodb:passmongo@cluster1.8bxv8.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(`${process.env.DB_URI}`, {
 	dbName: 'message-chat'
 }).then(() => {
 	server.listen(process.env.PORT, () => {
