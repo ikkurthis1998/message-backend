@@ -25,7 +25,9 @@ io.on("connection", (socket: Socket) => {
 	});
 });
 
-mongoose.connect("mongodb+srv://dbAdmin:adminpassword@lets-chat.6qo7h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(() => {
+mongoose.connect(" mongodb+srv://mongodb:passmongo@cluster1.8bxv8.mongodb.net/?retryWrites=true&w=majority", {
+	dbName: 'message-chat'
+}).then(() => {
 	server.listen(process.env.PORT, () => {
 		console.log("It's on b*tch!");
 	});
