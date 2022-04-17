@@ -13,8 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-// const express = require('express');
-const app = express_1.default();
+const dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1.default.config();
+const app = (0, express_1.default)();
 const http_1 = __importDefault(require("http"));
 const server = http_1.default.createServer(app);
 const socket_io_1 = require("socket.io");
@@ -22,7 +23,7 @@ const io = new socket_io_1.Server(server, { cors: { origin: "*" } });
 const mongoose_1 = __importDefault(require("mongoose"));
 const publicChatModel_1 = __importDefault(require("./models/publicChatModel"));
 const cors_1 = __importDefault(require("cors"));
-app.use(cors_1.default({ origin: "*" }));
+app.use((0, cors_1.default)({ origin: "*" }));
 io.on("connection", (socket) => {
     socket.on("public", (payload) => __awaiter(void 0, void 0, void 0, function* () {
         const publicChat = payload;
@@ -31,7 +32,9 @@ io.on("connection", (socket) => {
         io.emit("public", Object.assign({}, payload));
     }));
 });
-mongoose_1.default.connect("mongodb+srv://dbAdmin:adminpassword@lets-chat.6qo7h.mongodb.net/myFirstDatabase?retryWrites=true&w=majority").then(() => {
+mongoose_1.default.connect(`${process.env.DB_URI}`, {
+    dbName: 'message-chat'
+}).then(() => {
     server.listen(process.env.PORT, () => {
         console.log("It's on b*tch!");
     });
